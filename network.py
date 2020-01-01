@@ -1,16 +1,28 @@
-from neuron import Neuron
 from layer import Layer
-from types import Type
+from neuron_types import _Type
 
 
 class Network:
 
-    def __init__(self, number_of_layers, *numbers_of_neurons_in_layer):
+    def __init__(self, number_of_layers, reader, *numbers_of_neurons_in_layer):
         layers = []
-        for counter, _ in enumerate(number_of_layers):
+        for counter, _ in enumerate(range(number_of_layers)):
             if counter != (number_of_layers - 1):  # The last layer must be linear
-                new_layer = Layer(Type.SIGMOIDAL, numbers_of_neurons_in_layer[counter])
+                new_layer = Layer(_Type.SIGMOIDAL, numbers_of_neurons_in_layer[counter], reader.data_size)
             else:
-                new_layer = Layer(Type.LINEAR, 1)  # The result is only the 0/1 number
+                # Each layer for one group (ill, not ill)
+                new_layer = Layer(_Type.LINEAR, numbers_of_neurons_in_layer[counter], reader.data_size)
             layers.append(new_layer)
+        self.reader = reader
         self.layers = layers
+
+    def forward_propagation(self):
+        result = []
+        for row in self.reader.data:
+            i = 1
+            output = self.layers[0].forward_propagation(row)
+            while i != len(self.layers):
+                output = self.layers[i].forward_propagation(output)
+                i += 1
+            result.append(output)
+        return result
