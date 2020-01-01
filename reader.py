@@ -20,5 +20,5 @@ class Reader:
 
 reader2 = Reader()
 reader2.get_data()
-network = Network(2, reader2, 1, 2)
-print(network.forward_propagation())
+network = Network(3, reader2, 0.5, 1, 2, 2, 2, 2)
+network.train()

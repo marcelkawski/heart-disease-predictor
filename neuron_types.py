@@ -1,6 +1,6 @@
 from enum import Enum, auto
 
 
-class _Type(Enum):
+class Typee(Enum):
     SIGMOIDAL = auto()
     LINEAR = auto()
