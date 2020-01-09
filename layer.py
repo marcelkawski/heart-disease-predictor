@@ -14,7 +14,7 @@ class Layer:
     def forward_propagation(self, _input):
         output_of_layer = []
         for neuron in self.neurons:
-            print("Neuron", neuron)
+            #print("Neuron", neuron)
             output_of_layer.append(neuron.forward_propagation(_input))
         return output_of_layer
 

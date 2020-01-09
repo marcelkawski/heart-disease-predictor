@@ -28,17 +28,17 @@ class Network:
     def forward_propagation(self, row):
         result = []
         i = 1
-        print("Layer: 0")
+        #print("Layer: 0")
         output = self.layers[0].forward_propagation(row)
         while i < len(self.layers):
-            print("Layer: ", i)
+            #print("Layer: ", i)
             output = self.layers[i].forward_propagation(output)
             i += 1
         result.append(output)
         return result
 
     def backward_propagation(self, row):
-        group = row[-1]
+        group = int(row[-1])
         for layer_counter, layer in reversed(list(enumerate(self.layers))):
             #print("Layer counter:", layer_counter)
             #print("Layer nr.: ", layer_counter)
@@ -49,13 +49,13 @@ class Network:
                     else:
                         expected = 0
                     layer.neurons[counter].error = (expected - neuron.output) * neuron.derivative()
+                    # print("!!!!!", group, counter, expected, neuron.output, neuron.derivative())
                     #print("Error: ", neuron.error)
             if layer.typee == Typee.SIGMOIDAL:
                 for counter, neuron in enumerate(layer.neurons):
                     error = 0
                     for neuron2 in self.layers[layer_counter+1].neurons:
-                        for weight in neuron2.weights:
-                            error += (weight * neuron2.error)
+                        error += (neuron2.weights[counter] * neuron2.error)
                     layer.neurons[counter].error = error * neuron.derivative()
                     #print("Error: ", neuron.error)
 
@@ -72,17 +72,21 @@ class Network:
                             neuron.weights[counter] += self.learning_rate * neuron.error * \
                                                    self.layers[layer_counter-1].neurons[counter].output
                             #print("Weights: ", neuron.weights[counter])
+                        else:
+                            neuron.weights[counter] += self.learning_rate * neuron.error
                     else:
                         # because there is one more weights (bias) than columns in data:
                         if counter < len(row):
                             neuron.weights[counter] += self.learning_rate * neuron.error * float(row[counter])
                             #print("Weights: ", neuron.weights[counter])
+                        else:
+                            neuron.weights[counter] += self.learning_rate * neuron.error
 
     def train(self):
         for epoch in range(self.max_epochs):
             error = 0
             for row in self.reader.data:
-                output = self.forward_propagation(row)
+                output = self.forward_propagation(row[:-1])
                 output = [item for sublist in output for item in sublist]
                 #print(output)
                 expected = [0] * self.number_of_groups
@@ -91,4 +95,5 @@ class Network:
                     error += ((expected[i] - output[i]) ** 2)
                 self.backward_propagation(row)
                 self.update_weights(row)
-            #print("Error: ", error)
+            print("Error: ", error)
+            # print(self.layers[2].neurons[1].error)

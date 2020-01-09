@@ -29,13 +29,13 @@ class Neuron:
             return adder_result
         else:
             print("ERROR: Need to implement an activation function for this type of neuron")
-            exit(1)
+        exit(1)
 
     def forward_propagation(self, row):
         output = self.activation_function(self.adder(row))
         self.output = output
         #  print("Output", output)
-        print(output)
+        #print(output)
         return output
 
     def derivative(self):
@@ -44,6 +44,6 @@ class Neuron:
         elif self.typee == Typee.LINEAR:
             return 1.0  # derivative for a linear function in output layer
         else:
-            print("ERROR: Need to implement a derivative for this type of neuron")
+            #print("ERROR: Need to implement a derivative for this type of neuron")
             exit(1)
 
