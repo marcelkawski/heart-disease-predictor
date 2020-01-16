@@ -95,5 +95,10 @@ class Network:
                     error += ((expected[i] - output[i]) ** 2)
                 self.backward_propagation(row)
                 self.update_weights(row)
-            print("Error: ", error)
+            # print("Error: ", error)
             # print(self.layers[2].neurons[1].error)
+
+    def test(self):
+        count_correct = 0
+        for n, row in enumerate(self.reader.data):
+            print(n, row, self.forward_propagation(row[:-1]))

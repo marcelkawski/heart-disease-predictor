@@ -19,6 +19,12 @@ class Reader:
 
 
 reader2 = Reader()
-reader2.get_data()
-network = Network(3, reader2, 0.3, 500, 2, 2, 20, 2)
+test_reader = Reader()
+
+reader2.get_data(data_file="learn_data.csv")
+network = Network(2, reader2, 0.3, 500, 2, 2, 2)
 network.train()
+
+test_reader.get_data(data_file="test_data.csv")
+network.reader = test_reader
+network.test()
