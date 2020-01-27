@@ -1,16 +1,31 @@
 from math import exp, atan
 from random import random
 from neuron_types import Typee
-
+import random
 
 class Neuron:
 
-    def __init__(self, typee, size_of_weights):
+    def __init__(self, typee, size_of_weights, **kwargs):
+        """
+        if there is "max" param in kwargs set weights between -max and max
+        else between 0 and 1
+
+        used to initialize hidden neurons weights between +- 1/sqrt(dim(input))
+
+        neurons which are not sigmoidal are linear - those are output neurons initialized with 0
+        """
         self.typee = typee
-        weights = []
-        for _ in range(size_of_weights + 1):  # weights for each input and one for bias
-            weight = random()
-            weights.append(weight)
+        if "max" in kwargs:
+            weights = [random.randint(-1*kwargs.get("max"), kwargs.get("max"))/1000
+                       if self.typee == Typee.SIGMOIDAL
+                       else 0
+                       for _ in range(size_of_weights + 1)]
+        else:
+            weights = [random.random()
+                       if self.typee == Typee.SIGMOIDAL
+                       else 0
+                       for _ in range(size_of_weights+1)]
+
         self.weights = weights
         self.output = None
         self.error = None
@@ -34,8 +49,6 @@ class Neuron:
     def forward_propagation(self, row):
         output = self.activation_function(self.adder(row))
         self.output = output
-        #  print("Output", output)
-        #print(output)
         return output
 
     def derivative(self):
@@ -44,6 +57,5 @@ class Neuron:
         elif self.typee == Typee.LINEAR:
             return 1.0  # derivative for a linear function in output layer
         else:
-            #print("ERROR: Need to implement a derivative for this type of neuron")
             exit(1)
 
