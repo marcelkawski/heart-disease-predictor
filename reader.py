@@ -8,7 +8,7 @@ class Reader:
         self.data = []
         self.header = []
 
-    def get_data(self, data_file='heart.csv', encoding='utf-8', delimiter=','):
+    def get_data(self, data_file, encoding='utf-8', delimiter=','):
         with open(data_file, encoding=encoding) as _file:
             reader = csv.reader(_file, delimiter=delimiter)
             data = [line for line in list(reader)]
