@@ -1,7 +1,7 @@
 # Python, all_data.csv
 
 # all_data.csv
-all_data.csv
+data/all_data.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
