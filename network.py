@@ -86,10 +86,10 @@ class Network:
                 self.update_weights(row)
 
     def test(self):
-        false_negative = 0
-        true_negative = 0
-        false_positive = 0
-        true_positive = 0
+        correct_positives = 0
+        correct_negatives = 0
+        incorrect_positives = 0
+        incorrect_negatives = 0
 
         for n, row in enumerate(self.reader.data):
             output = self.forward_propagation(row[:-1])[0]
@@ -102,16 +102,22 @@ class Network:
 
             if predict == 1:
                 if real == 1:
-                    true_positive += 1
+                    correct_positives += 1
                 else:
-                    false_positive += 1
+                    incorrect_positives += 1
             else:
                 if real == 1:
-                    false_negative += 1
+                    incorrect_negatives += 1
                 else:
-                    true_negative += 1
+                    correct_negatives += 1
 
-        print("tp: ", true_positive)
-        print("fp: ", false_positive)
-        print("tn: ", true_negative)
-        print("fn: ", false_negative)
+        print("CORRECT positive predictions: ", correct_positives)
+        print("Incorrect positive predictions: ", incorrect_positives)
+        print("CORRECT negative predictions: ", correct_negatives)
+        print("Incorrect negative predictions: ", incorrect_negatives)
+
+        correct_predictions = correct_positives + correct_negatives
+        incorrect_predictions = incorrect_positives + incorrect_negatives
+
+        print("\nEffectiveness of the network: ", correct_predictions / (correct_predictions+incorrect_predictions) * 100,
+              " %")

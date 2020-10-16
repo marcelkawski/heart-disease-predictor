@@ -53,19 +53,3 @@ class Reader:
                 if max[n] != min[n]:
                     row[n] = (param - min[n]) / (max[n] - min[n])
 
-
-reader2 = Reader()
-test_reader = Reader()
-
-reader2.get_data(data_file="learn_data.csv")
-reader2.divide_descrete()
-reader2.normalize()
-network = Network(2, reader2, 0.3, 500, 2,
-                  8, 2)
-network.train()
-
-test_reader.get_data(data_file="test_data.csv")
-test_reader.divide_descrete()
-test_reader.normalize()
-network.reader = test_reader
-network.test()
