@@ -1,5 +1,4 @@
 import csv
-from network import Network
 
 
 class Reader:
@@ -38,18 +37,18 @@ class Reader:
         """
         normalize all data parameters to values between 0 and 1
         """
-        max = [x for x in self.data[0]]
-        min = [x for x in self.data[0]]
+        _max = [x for x in self.data[0]]
+        _min = [x for x in self.data[0]]
 
         for row in self.data:
             for n, param in enumerate(row):
-                if float(param) > float(max[n]):
-                    max[n] = float(param)
-                if float(param) < float(min[n]):
-                    min[n] = float(param)
+                if float(param) > float(_max[n]):
+                    _max[n] = float(param)
+                if float(param) < float(_min[n]):
+                    _min[n] = float(param)
 
         for row in self.data:
             for n, param in enumerate(row[:-1]):
-                if max[n] != min[n]:
-                    row[n] = (param - min[n]) / (max[n] - min[n])
+                if _max[n] != _min[n]:
+                    row[n] = (param - _min[n]) / (_max[n] - _min[n])
 

@@ -72,7 +72,7 @@ class Network:
                         else:
                             neuron.weights[counter] += self.learning_rate * neuron.error
 
-    def train(self):
+    def train(self):    # using stochastic gradient descent
         for epoch in range(self.max_epochs):
             error = 0
             for row in self.reader.data:

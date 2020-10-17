@@ -3,6 +3,7 @@ from random import random
 from neuron_types import Typee
 import random
 
+
 class Neuron:
 
     def __init__(self, typee, size_of_weights, **kwargs):
