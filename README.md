@@ -10,6 +10,7 @@ Neural network (multilayer perceptron) predicting heart diseases based on kaggle
 
 ## General info
 Project realised by [@Marcel88888](https://github.com/Marcel88888) and [@ppawel11](https://github.com/ppawel11) for the subject Fundamentals of Artificial Intelligence on the Warsaw University of Technology. Our goal was to get familiar with the mode of action of neural networks and to use it in some practical way.
+
 It was not allowed to use python artificial intelligence libraries so all algorithms are made "by hand".
 
 ## Screenshots
