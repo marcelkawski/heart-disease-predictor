@@ -20,9 +20,10 @@ It was not allowed to use python artificial intelligence libraries so all algori
 * Python 3.7
 
 ## Features
-* training the neural network using training data
-Learning is done using stochastic gradient descent algorithm.
+* training the neural network using training data (Learning is done using stochastic gradient descent algorithm.)
 * checking effectiveness of the neural network using testing data
+
+All layers (except the last one which is linear) are sigmoidal.
 
 ## Status
 Project is finished but we can improve our network using some artifical inteligence algorithms which can make effectiveness higher.
